@@ -54,13 +54,13 @@ echo "installation d'iptables terminee."
 /usr/sbin/iptables  -A INPUT -p tcp --dport $SSH_PORT --source "ip de la vm de test"  -j ACCEPT
 
 ##DNS MX 
-/usr/sbin/iptables  -A INPUT -p tcp --dport 53 --source 172.16.0.5  -j ACCEPT
-/usr/sbin/iptables  -A INPUT -p udp --dport 53 --source 172.16.0.5  -j ACCEPT
+/usr/sbin/iptables  -A INPUT -p tcp --dport 53 --source "ip_mx_server"  -j ACCEPT
+/usr/sbin/iptables  -A INPUT -p udp --dport 53 --source "ip_mx_server"  -j ACCEPT
 
 ## 
 
 ## zabbix - PGI
-/usr/sbin/iptables  -A INPUT -p tcp --dport 10050 --source 192.168.1.23/24  -j ACCEPT
+/usr/sbin/iptables  -A INPUT -p tcp --dport 10050 --source "ip_zabbix_server"  -j ACCEPT
 
 
 ###-----------------------------------------------------------------------------------------------
