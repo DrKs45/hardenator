@@ -19,7 +19,7 @@ The script requires a few modifications before it can be used:
 
 ## The Script
 
-    - Provides a basic configuration for:
+    Provides a basic configuration for:
     - IPTables
     - Fail2ban
     - rkhunter
@@ -29,6 +29,7 @@ The script requires a few modifications before it can be used:
     - AppArmor
     - SSH 
 
+<<<<<<< HEAD
 ## V 0.2 
 
 ### New feature : 
@@ -53,3 +54,11 @@ Other:
     - check if iptables files is on the right path 
     - adding new step verification 
     - Optimization: General script optimization and making it more autonomous.
+=======
+## Planned updates for V 0.2:
+    - IPTables: Fetch an external configuration file for better flexibility.
+    - SSH: Add SSH configuration management.
+    - Optimization: General script optimization and making it more autonomous.
+    - English version
+    
+>>>>>>> 7c63287ed52f197a5dbf249d4d99aad9b4ddd110
