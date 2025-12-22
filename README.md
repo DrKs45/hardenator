@@ -3,12 +3,9 @@
 
 Hardenator is a personal project aimed at demonstrating my progress in shell scripting. You are, of course, free to use and modify this script as you wish.
 
-Linux server hardening script
 
 ## Usage
-0.1: Get the code
 
-V 0.1
 Clone the script:
 
 ```Shell
@@ -30,10 +27,38 @@ The script requires a few modifications before it can be used:
     - Logwatch
     - PortSentry
     - AppArmor
+    - SSH 
 
+<<<<<<< HEAD
+## V 0.2 
+
+### New feature : 
+
+![alt text](Visu_V0.2.jpg)
+
+IPtables:
+    - Externalized Config: Rules are now managed via separate files.
+    - Flexibility: Allows for greater flexibility, enabling you to add your own iptables rules without modifying the core script directly.
+    - Example File: A template file (iptables_file_example) is included, containing essential rules and common examples.
+
+SSH:
+    - Installation: Automated installation of openssh-server.
+    - Port Management: Custom SSH port configuration.
+    - Hardening: Security settings applied based on ANSSI recommendations (French National Agency for the Security of Information Systems).
+
+Other:
+    - Language: Transitioned all code and documentation to English for broader accessibility.
+    - Security: Added .gitignore to prevent sensitive local data from being committed.
+
+## Planned updates for V 0.3:
+    - check if iptables files is on the right path 
+    - adding new step verification 
+    - Optimization: General script optimization and making it more autonomous.
+=======
 ## Planned updates for V 0.2:
     - IPTables: Fetch an external configuration file for better flexibility.
     - SSH: Add SSH configuration management.
     - Optimization: General script optimization and making it more autonomous.
     - English version
     
+>>>>>>> 7c63287ed52f197a5dbf249d4d99aad9b4ddd110
