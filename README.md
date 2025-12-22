@@ -3,7 +3,6 @@
 
 Hardenator is a personal project aimed at demonstrating my progress in shell scripting. You are, of course, free to use and modify this script as you wish.
 
-Linux server hardening script
 
 ## Usage
 

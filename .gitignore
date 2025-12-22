@@ -1,0 +1,9 @@
+# .env files
+.env
+*.env
+# Environment variable files
+.env.local
+.env.*.local
+# Log files
+logs
+*.log
