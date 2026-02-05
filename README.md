@@ -29,8 +29,7 @@ The script requires a few modifications before it can be used:
     - AppArmor
     - SSH 
 
-<<<<<<< HEAD
-## V 0.2 
+## V 0.2 (Alpha) 
 
 ### New feature : 
 
