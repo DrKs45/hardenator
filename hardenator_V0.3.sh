@@ -1,11 +1,18 @@
 #!/bin/bash
 
+# Update packages
+sudo apt update
+sudo apt upgrade -y
+
 # variables
 # iptables
-## SSH Port to modify according to the desired port
+## SSH Port to modify according to the desired port (used for SSH and Fail2ban configuration)
 SSH_PORT=22
+#Username of the user to create for init server access
+SSH_USER="ssh_user_name"
+
 # Fail2ban
-OS=$(lsb_release -si)
+OS=$(lsb_release -si | head)
 # logwatch + postfix
 SERVER_HOSTNAME=$HOSTNAME"@domain.net" 
 SERVER_DOMAIN="domain.net"       
@@ -19,20 +26,30 @@ CRON_FILE="/etc/cron.d/logwatch-domain"
 IGNORED_IPS="Ip_address_to_ignore1 Ip_address_to_ignore2..."
 JAIL_CONF="/etc/fail2ban/jail.conf"
 
-## SSH configuration
+## SSH configuration (based on ansii recommendations)
 apt install -y openssh-server
 sed -i "s/#Port 22/Port $SSH_PORT/" /etc/ssh/sshd_config
-sed -i "s/PermitRootLogin yes/PermitRootLogin no/" /etc/ssh/sshd_config
+sed -i "s/#PermitRootLogin yes/PermitRootLogin no/" /etc/ssh/sshd_config
 sed -i "s/#PasswordAuthentication yes/PasswordAuthentication no/" /etc/ssh/sshd_config
 # Enable PubkeyAuthentication (make sure you have set up SSH keys before disabling password authentication)
 sed -i "s/#PubkeyAuthentication yes/PubkeyAuthentication yes/" /etc/ssh/sshd_config
-sed -i "s/#MaxAuthTries.*/MaxAuthTries 3/" /etc/ssh/sshd_config
+sed -i "s/#MaxAuthTries.*/MaxAuthTries 6/" /etc/ssh/sshd_config
 
-systemctl restart sshd
+# Add user for SSH access
+if [ -d /home/$SSH_USER/.ssh/authorized_keys ]; then
+    echo "Files already exist."
+else
+    echo "Creating SSH files"
+    sudo mkdir -p /home/$SSH_USER/.ssh
+    sudo cp authorized_keys /home/$SSH_USER/.ssh/
+    sudo chown -R $SSH_USER:$SSH_USER /home/$SSH_USER/.ssh
+    sudo chmod 700 /home/$SSH_USER/.ssh
+    sudo chmod 600 /home/$SSH_USER/.ssh/authorized_keys
+    echo "The SSH keys copied."
+fi
 
-# Update packages
-sudo apt update
-sudo apt upgrade -y
+systemctl restart ssh
+
 
 # iptables installation and configuration
 echo "Installing and configuring iptables..."
@@ -40,8 +57,8 @@ sudo apt install -y iptables
 
 echo "Iptables installation completed."
 
-# Execute iptables rules from the example file
-bash iptables_file_exemple.sh
+# Execute iptables rules from the example file (available in the same directory as this script if you downloaded git repo)
+bash ./iptables_file_exemple.sh
 
 
 # Make rules persistent
@@ -64,7 +81,7 @@ apt install -y fail2ban
 
 # Configuration of the 'sshd' jail (creation of the specific configuration file)
 echo "Configuring 'sshd' jail..."
-sudo bash -c 'cat > /etc/fail2ban/jail.d/defaults-"$OS".conf << EOF
+bash -c 'cat > /etc/fail2ban/jail.d/defaults-"$OS".conf << EOF
 [sshd] 
 enabled = true
 port = $SSH_PORT
@@ -103,7 +120,6 @@ if [ $? -eq 0 ]; then
     echo "Postfix installed successfully."
 else
     echo "ERROR: Postfix installation failed. Script stopped."
-    exit 1
 fi
 
 echo "--- 3. Configuring main parameters..."
@@ -151,10 +167,25 @@ sudo systemctl reload postfix
 echo "Postfix configuration completed for $SERVER_HOSTNAME."
 
 # Install rkhunter 
-apt install rkhunter -y
+#check if rkhunter is installed
+if command -v rkhunter &> /dev/null
+then
+    echo "rkhunter is already installed."
+else
+    apt install rkhunter -y
+fi 
+
 
 # Install logwatch 
-apt install logwatch -y
+# Check if logwatch is installed
+if ! command -v logwatch &> /dev/null
+then
+    echo "Logwatch is not installed. Installing..."
+    sudo apt install -y logwatch
+else
+    echo "Logwatch is already installed."
+fi
+
 mkdir -p /var/cache/logwatch
 
 
@@ -179,12 +210,12 @@ echo "Adding cron task for Logwatch to $CRON_FILE..."
 # The 'tee' command with 'sudo' allows writing to the file while overwriting (idempotence).
 echo "$CRON_JOB" | sudo tee $CRON_FILE > /dev/null
 
-# 2. Define permissions (required for /etc/cron.d/ files)
 sudo chmod 0644 $CRON_FILE
 
 echo "Cron job added and configured."
 echo "The Logwatch report will be sent to $ALERT_EMAIL every day at 06:00."
 
+# 2. Define permissions (required for /etc/cron.d/ files)
 # test if logwatch works
 echo "Testing if logwatch works..." 
 logwatch --mailto $ALERT_EMAIL
