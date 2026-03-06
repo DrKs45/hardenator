@@ -49,7 +49,8 @@ Other :
     
 ## V 0.3
 
-Summary : 
+Summary :
+
     - adding new step verification for Logwatch, rkhunter, Postfix and PortSentry
     - ssh_key files and adding .ssh files for 1 user needed  
     - Upgrade Iptables integration 
