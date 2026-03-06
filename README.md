@@ -33,8 +33,6 @@ The script requires a few modifications before it can be used:
 
 ### New feature : 
 
-![alt text](Visu_V0.2.jpg)
-
 IPtables:
     - Externalized Config: Rules are now managed via separate files.
     - Flexibility: Allows for greater flexibility, enabling you to add your own iptables rules without modifying the core script directly.
@@ -49,8 +47,6 @@ Other:
     - Language: Transitioned all code and documentation to English for broader accessibility.
     - Security: Added .gitignore to prevent sensitive local data from being committed.
 
-<<<<<<< HEAD
-
     
 ## V 0.3
 
@@ -60,7 +56,6 @@ Summary :
     - Upgrade Iptables integration 
     - Fix updtate from some mistake... 
  
-
 
 ssh : add new file for the public keys : now you configure fully the ssh configuration 
 
@@ -75,9 +70,3 @@ IPtables : adding other exemples and fixing some things :
     - interactive menu (for choose for full install or by module)
     - being more prod friendly the script
     - multi ssh key + user creation options 
-=======
-## Planned updates for V 0.3:
-    - check if iptables files is on the right path 
-    - adding new step verification 
-    - Optimization: General script optimization and making it more autonomous.
->>>>>>> 181884c79f8f56ae7659847ec77a8032e3c775da
