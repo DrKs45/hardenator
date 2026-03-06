@@ -49,7 +49,35 @@ Other:
     - Language: Transitioned all code and documentation to English for broader accessibility.
     - Security: Added .gitignore to prevent sensitive local data from being committed.
 
+<<<<<<< HEAD
+
+    
+## V 0.3
+
+Summary : 
+    - adding new step verification for Logwatch, rkhunter, Postfix and PortSentry
+    - ssh_key files and adding .ssh files for 1 user needed  
+    - Upgrade Iptables integration 
+    - Fix updtate from some mistake... 
+ 
+
+
+ssh : add new file for the public keys : now you configure fully the ssh configuration 
+
+IPtables : adding other exemples and fixing some things : 
+    - ssh variable 
+    - adding #!/bin/bash (oops...) 
+    - add smtp port 
+    
+
+### Planned updates for next patch (1.0):
+    - optimize script
+    - interactive menu (for choose for full install or by module)
+    - being more prod friendly the script
+    - multi ssh key + user creation options 
+=======
 ## Planned updates for V 0.3:
     - check if iptables files is on the right path 
     - adding new step verification 
     - Optimization: General script optimization and making it more autonomous.
+>>>>>>> 181884c79f8f56ae7659847ec77a8032e3c775da
