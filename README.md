@@ -29,8 +29,7 @@ The script requires a few modifications before it can be used:
     - AppArmor
     - SSH 
 
-<<<<<<< HEAD
-## V 0.2 
+## V 0.2 (Alpha) 
 
 ### New feature : 
 
@@ -50,6 +49,7 @@ Other:
     - Language: Transitioned all code and documentation to English for broader accessibility.
     - Security: Added .gitignore to prevent sensitive local data from being committed.
 
+<<<<<<< HEAD
 
     
 ## V 0.3
@@ -75,3 +75,9 @@ IPtables : adding other exemples and fixing some things :
     - interactive menu (for choose for full install or by module)
     - being more prod friendly the script
     - multi ssh key + user creation options 
+=======
+## Planned updates for V 0.3:
+    - check if iptables files is on the right path 
+    - adding new step verification 
+    - Optimization: General script optimization and making it more autonomous.
+>>>>>>> 181884c79f8f56ae7659847ec77a8032e3c775da
